@@ -17,14 +17,14 @@ int** allocMonth()
     }
     return month;
 }
-void DeAllocMonth()
+void deAllocMonth(int** month)
 {
-    int** month;
-    delete month[5];
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
-        delete month[i];
+        delete[] month[i];
     }
+
+    delete[] month;
 }
 void monthNames(int counter)
 {
@@ -91,7 +91,10 @@ void displayMonth(int** month)
 //nextFirstDay[out] -> first day of the week for the next month
 int** createMonth(int which, int firstDay, int year, int* nextFirstDay)
 {
-
+    if (firstDay == 7)
+    {
+        firstDay = 0;
+    }
     int k = 1;
     int** month = allocMonth();
     for (int i = 0; i < 6; i++)
@@ -203,11 +206,10 @@ int main()
     {
         monthNames(counter);
         displayMonth(monthsOfYear[counter]);
-
+        
         counter++;
     } while (counter < 12);
-    DeAllocMonth();
 
-
+    
 }
 
